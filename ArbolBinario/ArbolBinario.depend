@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1637839571 source:c:\users\luisi\desktop\c++ projects\21-22\arbolbinario\arboles.cpp
+	"arboles.h"
+
+1637839533 c:\users\luisi\desktop\c++ projects\21-22\arbolbinario\arboles.h
+	<iostream>
+
+1637927579 source:c:\users\luisi\desktop\c++ projects\21-22\arbolbinario\main.cpp
+	"arboles.h"
+	<iostream>
+	<ctime>
+	<stdlib.h>
+
