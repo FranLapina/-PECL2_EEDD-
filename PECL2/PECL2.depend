@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1638038768 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\main.cpp
+	<iostream>
+	<utilidades.h>
+
+1638038785 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\src\utilidades.cpp
+	"utilidades.h"
+
+1638038768 c:\workspacecodeblocks\-pecl2_eedd-\pecl2\include\utilidades.h
+	<string>
+
