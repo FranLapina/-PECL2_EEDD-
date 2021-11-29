@@ -12,6 +12,8 @@ string modelarLatitud(int latitudNumerica);
 string modelarLongitud(int longitudNumerica);
 string modelarID();
 string modelarNIF();
+int generarCP();
+string definirCiudad();
 
 struct Paquete{
 
@@ -32,10 +34,46 @@ struct Paquete{
         int numeroCP;
 
 };
-struct CentralDePaqueteria{
-    int numeroCP;
-    string localidad;
-    //TODO: LISTA DE PAQUETES.
+
+
+class Nodo
+{
+private:
+    Paquete valor;
+    Nodo *siguiente;
+    friend class Lista;
+public:
+    Nodo(Paquete v, Nodo *sig = NULL)
+    {
+        valor = v;
+        siguiente = sig;
+    }
+};
+typedef Nodo *pnodo;
+class Lista
+{
+private:
+    pnodo cabeza, actual, final;
+public:
+    Lista()
+    {
+        cabeza = actual = final = NULL;
+    }
+    ~Lista();
+    void insertarNodo(Paquete v);
+    void borrarNodo(Paquete v);
+    bool listaVacia();
+    void esCabeza();
+    void esFinal();
+    void esSiguiente();
+    bool esActual();
+    Paquete valorActual();
+    void recorrerLista();
 };
 
+struct CentralDePaqueteria{
+    int numeroCP = generarCP();
+    string localidad = definirCiudad();
+    Lista listaPaquetes;
+};
 #endif // UTILIDADES_H

@@ -147,4 +147,106 @@ string modelarNIF(){
     }
     return NIFCompleto;
 }
+Lista::~Lista()
+{
+    pnodo aux;
+    while(cabeza)
+    {
+        aux = cabeza;
+        cabeza = cabeza->siguiente;
+        delete aux;
+    }
+    actual = NULL;
+}
+
+void Lista::insertarNodo(Paquete v)
+{
+    pnodo aux;
+    if (listaVacia())
+    {
+        cabeza = new Nodo(v, NULL);
+        final=cabeza;
+    }
+    else
+    {
+        aux= new Nodo(v,NULL);
+        final->siguiente=aux;
+        final=aux;
+    }
+}
+void Lista::borrarNodo(Paquete v)
+{
+    pnodo anterior;
+    actual = cabeza;
+    while (actual->valor.ID!=v.ID && (actual->siguiente)!=NULL)
+    {
+        anterior=actual;
+        actual=actual->siguiente;
+    }
+    if(actual==cabeza) // Primer elemento
+        cabeza = actual->siguiente;
+    else
+    {
+        anterior->siguiente = actual->siguiente;
+        if(actual==final) final=anterior;
+    }
+    actual->siguiente=NULL;
+    delete actual;
+}
+bool Lista::listaVacia()
+{
+    return cabeza == NULL;
+}
+void Lista::esCabeza()
+{
+    actual = cabeza;
+}
+void Lista::esFinal()
+{
+    esCabeza();
+    if(!listaVacia()) // Más sencillo
+        while(actual->siguiente) // actual = final;
+            esSiguiente();
+}
+void Lista::esSiguiente()
+{
+    if(actual) actual = actual->siguiente;
+}
+bool Lista::esActual()
+{
+    return actual != NULL;
+}
+Paquete Lista::valorActual()
+{
+    return actual->valor;
+}
+string definirCiudad(){
+    string ciudades[8] = {"Daganzo","Alcala","Mejorada","Nuevo Baztan","Arganda","Carabana","Chinchon","Villarejo"};
+    int maxi = 7;
+    int mini = 0;
+    int p;
+    p = (mini + rand() % (maxi+1 - mini));
+    return ciudades[p];
+}
+
+int generarCP(){
+    int cp_max = 999;
+    int cp_min = 100;
+    int cp;
+    cp = (cp_min + rand() % (cp_max+1 - cp_min));
+    return cp;
+}
+
+/*
+void Lista::recorrerLista()
+{
+    pnodo aux;
+    aux = cabeza;
+    while(aux)
+    {
+        cout << aux->valor << "-> ";
+        aux = aux->siguiente;
+    }
+    cout << endl;
+}*/
 
