@@ -26,3 +26,16 @@ Otra mejora podria ser generar un txt del arbol binario.
 
 
 Guardar fichero de texto(arbol): https://es.stackoverflow.com/questions/118012/como-guardar-y-cargar-un-arbol-binario-en-un-archivos
+
+
+  string nombreArchivo = "arbol.txt";
+    ofstream archivo;
+    //Abrimos el archivo
+    archivo.open(nombreArchivo.c_str(), fstream::out);
+    //Y le escribimos
+    archivo << "pito";
+    archivo << "pito";
+    archivo << endl;
+    archivo.close();
+
+    cout<< "Escrito correctamente";
