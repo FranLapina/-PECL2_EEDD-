@@ -39,3 +39,9 @@ Guardar fichero de texto(arbol): https://es.stackoverflow.com/questions/118012/c
     archivo.close();
 
     cout<< "Escrito correctamente";
+    
+    
+    void menu_CP(){
+    cout << "Los nodos utilizados para el ABB:" << endl;
+
+    cout << "CP:" << "987" << "-" << "ESPAÑA";
