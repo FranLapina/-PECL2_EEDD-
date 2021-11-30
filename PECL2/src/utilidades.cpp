@@ -220,13 +220,14 @@ Paquete Lista::valorActual()
 {
     return actual->valor;
 }
-string definirCiudad(){
+string definirCiudad(int p){
     string ciudades[8] = {"Daganzo","Alcala","Mejorada","Nuevo Baztan","Arganda","Carabana","Chinchon","Villarejo"};
-    int maxi = 7;
-    int mini = 0;
-    int p;
-    p = (mini + rand() % (maxi+1 - mini));
-    return ciudades[p];
+    ++p;
+    if(p-1 > 7){
+        return "";
+    }else{
+        return ciudades[p-1];
+    }
 }
 
 int generarCP(){

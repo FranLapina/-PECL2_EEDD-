@@ -6,6 +6,7 @@ using namespace std;
     DECLARACION
     DE METODOS
 */
+static int p = 0;
 int definirLatitud();
 int definirLongitud();
 string modelarLatitud(int latitudNumerica);
@@ -13,7 +14,7 @@ string modelarLongitud(int longitudNumerica);
 string modelarID();
 string modelarNIF();
 int generarCP();
-string definirCiudad();
+string definirCiudad(int p);
 
 struct Paquete{
 
@@ -73,7 +74,7 @@ public:
 
 struct CentralDePaqueteria{
     int numeroCP = generarCP();
-    string localidad = definirCiudad();
+    string localidad = definirCiudad(p);
     Lista listaPaquetes;
 };
 #endif // UTILIDADES_H
