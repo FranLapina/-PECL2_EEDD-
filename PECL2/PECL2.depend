@@ -1,11 +1,19 @@
 # depslib dependency file v1.0
-1638269253 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\main.cpp
+1638475063 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\main.cpp
 	<iostream>
 	<utilidades.h>
 
-1638269253 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\src\utilidades.cpp
+1638475422 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\src\utilidades.cpp
 	"utilidades.h"
+	<iostream>
 
-1638269403 c:\workspacecodeblocks\-pecl2_eedd-\pecl2\include\utilidades.h
+1638475432 c:\workspacecodeblocks\-pecl2_eedd-\pecl2\include\utilidades.h
 	<string>
+
+1638474343 source:c:\workspacecodeblocks\-pecl2_eedd-\pecl2\src\arboles.cpp
+	"arboles.h"
+
+1638474343 c:\workspacecodeblocks\-pecl2_eedd-\pecl2\include\arboles.h
+	<utilidades.h>
+	<iostream>
 

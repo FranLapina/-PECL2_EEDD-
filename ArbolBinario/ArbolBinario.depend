@@ -11,3 +11,15 @@
 	<ctime>
 	<stdlib.h>
 
+1638469322 source:c:\workspacecodeblocks\-pecl2_eedd-\arbolbinario\main.cpp
+	"arboles.h"
+	<iostream>
+	<ctime>
+	<stdlib.h>
+
+1638032620 c:\workspacecodeblocks\-pecl2_eedd-\arbolbinario\arboles.h
+	<iostream>
+
+1638032620 source:c:\workspacecodeblocks\-pecl2_eedd-\arbolbinario\arboles.cpp
+	"arboles.h"
+

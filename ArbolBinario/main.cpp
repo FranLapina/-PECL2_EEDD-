@@ -50,22 +50,22 @@ int main()
 
 
 // Arbol totalmente equilibrado de altura 3 (0, 1, 2, 3)
+   arbolInt.Insertar(1);
+
+   arbolInt.Insertar(2);
+   arbolInt.Insertar(3);
+   arbolInt.Insertar(4);
+   arbolInt.Insertar(5);
+   arbolInt.Insertar(6);
+   arbolInt.Insertar(7);
    arbolInt.Insertar(8);
 
-   arbolInt.Insertar(4);
-   arbolInt.Insertar(2);
-   arbolInt.Insertar(6);
-   arbolInt.Insertar(1);
-   arbolInt.Insertar(3);
-   arbolInt.Insertar(5);
-   arbolInt.Insertar(7);
-
-   arbolInt.Insertar(12);
-   arbolInt.Insertar(10);
-   arbolInt.Insertar(14);
    arbolInt.Insertar(9);
+   arbolInt.Insertar(10);
    arbolInt.Insertar(11);
+   arbolInt.Insertar(12);
    arbolInt.Insertar(13);
+   arbolInt.Insertar(14);
    arbolInt.Insertar(15);
 
 
@@ -91,6 +91,7 @@ int main()
    cout << "PostOrden: ";
    arbolInt.PostOrden(Mostrar);
    cout << endl;
+   cout << "Altura de 10 " << arbolInt.Altura(10) << endl;
 
    // Borraremos algunos elementos:
    cout << "N nodos: " << arbolInt.NumeroNodos() << endl;
@@ -102,18 +103,18 @@ int main()
    cout << "Borrar   8: ";
    arbolInt.InOrden(Mostrar);
    cout << endl;
-   arbolInt.Borrar(15);
+   arbolInt.Borrar(1);
    cout << "Borrar  15: ";
    arbolInt.InOrden(Mostrar);
    cout << endl;
-   arbolInt.Borrar(245);
+   arbolInt.Borrar(2);
    cout << "Borrar 245: ";
    arbolInt.InOrden(Mostrar);
    cout << endl;
    arbolInt.Borrar(4);
    cout << "Borrar   4: ";
    arbolInt.InOrden(Mostrar);
-   arbolInt.Borrar(17);
+   arbolInt.Borrar(11);
    cout << endl;
    cout << "Borrar  17: ";
    arbolInt.InOrden(Mostrar);
@@ -121,7 +122,6 @@ int main()
 
    // Veamos algunos parámetros
    cout << "N nodos: " << arbolInt.NumeroNodos() << endl;
-   cout << "Altura de 1 " << arbolInt.Altura(1) << endl;
    cout << "Altura de 10 " << arbolInt.Altura(10) << endl;
    cout << "Altura de arbol " << arbolInt.AlturaArbol() << endl;
 
