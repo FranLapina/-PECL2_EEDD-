@@ -7,6 +7,7 @@ using namespace std;
     DE METODOS
 */
 static int cpContador = 0;
+static int arrayCPs[100];
 int definirLatitud();
 int definirLongitud();
 string modelarLatitud(int latitudNumerica);
@@ -14,8 +15,9 @@ string modelarLongitud(int longitudNumerica);
 string modelarID();
 string modelarNIF();
 int generarCP();
-string definirCiudad(int p);
-
+string definirCiudad();
+int contadorCPs();
+int devolverCPporPosicion(int p);
 struct Paquete{
 
 
@@ -33,6 +35,7 @@ struct Paquete{
         string coordenadas = longitud+" , "+latitud;
         string NIF = modelarNIF();
         int numeroCP;
+        void mostrarDatosPaquete();
 
 };
 
@@ -62,6 +65,10 @@ public:
         cabeza = actual = final = NULL;
     }
     ~Lista();
+    int cantidadPaquetes = 0;
+    void MostrarPaquetesLista();
+    Paquete BuscarPaqueteLista(string ID);
+    bool listaRecorrida();
     void insertarNodo(Paquete v);
     void borrarNodo(Paquete v);
     bool listaVacia();
@@ -70,12 +77,14 @@ public:
     void esSiguiente();
     bool esActual();
     Paquete valorActual();
-    void recorrerLista();
+
 };
+//Lista de numeros CP que hay.
+
 
 struct CentralDePaqueteria{
     int numeroCP = generarCP();
-    string localidad = definirCiudad(cpContador);
+    string localidad = definirCiudad();
     Lista listaPaquetes;
 
 };
@@ -103,15 +112,20 @@ class Arbol {
         int altura;
 
     public:
+        void mostrarDatosDeCP(int numero);
+        void datosDeLasCP();
         // Constructor y destructor básicos:
         Arbol() : raiz(NULL), actual(NULL) {}
         ~Arbol() { Podar(raiz); }
         // Insertar en árbol ordenado:
         void Insertar(CentralDePaqueteria dat);
         // Borrar un elemento del árbol:
+        void borrarUnaCP();
         void Borrar(CentralDePaqueteria dat);
         // Función de búsqueda:
-        bool Buscar(CentralDePaqueteria dat);
+        CentralDePaqueteria& BuscarPorCp(int numeroCP);
+        bool Buscar(int numeroCP);
+
         // Comprobar si el árbol está vacío:
         bool Vacio(pNodo r) { return r==NULL; }
         // Comprobar si es un nodo hoja:
@@ -122,19 +136,32 @@ class Arbol {
         // Calcular altura de un int:
         int Altura(CentralDePaqueteria dat);
         // Devolver referencia al int del nodo actual:
-        CentralDePaqueteria ValorActual() { return actual->dato; } //&ValorActual()
+        CentralDePaqueteria ValorActualArbol() { return actual->dato; } //&ValorActual()
         // Moverse al nodo raiz:
         void Raiz() { actual = raiz; }
         // Aplicar una función a cada elemento del árbol:
         void InOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo=NULL, bool r=true);
         void PreOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo=NULL, bool r=true);
         void PostOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo=NULL, bool r=true);
+        void InOrdenPaquete(void (*func)(CentralDePaqueteria&, string ID) , pNodo nodo=NULL, bool r=true, string ID="");
         private:
         // Funciones auxiliares
         void Podar(pNodo &nodo);
         void auxContador(pNodo nodo);
         void auxAltura(pNodo nodo, int alt);
 };
+/*
+    METODOS
+    QUE REQUIEREN
+    DE LAS DECLARACIONES SUPERIORES
 
+*/
 void Mostrar(CentralDePaqueteria&);
+void MostrarNumero(CentralDePaqueteria&);
+void MostrarEstadisticas(CentralDePaqueteria&);
+void MostrarDatosPaquete(CentralDePaqueteria&, string ID);
+void EliminarPaquete(CentralDePaqueteria&, string ID);
+
+CentralDePaqueteria crearCP();
+
 #endif // UTILIDADES_H
