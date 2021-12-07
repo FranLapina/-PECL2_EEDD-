@@ -81,7 +81,13 @@ int main()
             }
 
         case 2:
-            arbolGeneral.borrarUnaCP();
+            if(arbolGeneral.NumeroNodos()>1){
+                arbolGeneral.borrarUnaCP();
+            }else{
+                cout << "----------------------------------------------" << endl;
+                cout << "No puede dejar el arbol vacio" << endl;
+                cout << "----------------------------------------------" << endl;
+            }
             break;
         case 3:
             cout << "Introduzca el numero de la CP a mostrar"<<endl;
@@ -204,16 +210,16 @@ int main()
 
             }
         case 9:
+
             {
                 listaPaquetesInicial.esCabeza();
                 while(!listaPaquetesInicial.listaVacia()){
                     Paquete paquete = listaPaquetesInicial.valorActual();
-                    cout << "Paquete: "<< paquete.ID<<" --> Sera introducido en: "<< arbolGeneral.BuscarPorCp(paquete.numeroCP).localidad<<". Con un CP: "<<paquete.numeroCP<<endl;
-                    arbolGeneral.BuscarPorCp(paquete.numeroCP).listaPaquetes.insertarNodo(paquete);
+                    cout << "Paquete: "<< paquete.ID<<" --> Sera introducido en: "
+                    << arbolGeneral.BuscarPorCp(paquete.numeroCP).localidad<<". Con un CP: "<<arbolGeneral.BuscarPorCp(paquete.numeroCP).numeroCP<<endl;
+                    arbolGeneral.InOrdenInsertar(InsertarPaqueteInOrden,NULL,true,paquete);
                     listaPaquetesInicial.borrarNodo(paquete);
                 }
-
-
             }
             break;
         default:

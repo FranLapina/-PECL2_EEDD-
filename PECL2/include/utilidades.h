@@ -36,6 +36,7 @@ struct Paquete{
         string NIF = modelarNIF();
         int numeroCP;
         void mostrarDatosPaquete();
+    paquete(){}
 
 };
 
@@ -125,7 +126,6 @@ class Arbol {
         // Función de búsqueda:
         CentralDePaqueteria& BuscarPorCp(int numeroCP);
         bool Buscar(int numeroCP);
-
         // Comprobar si el árbol está vacío:
         bool Vacio(pNodo r) { return r==NULL; }
         // Comprobar si es un nodo hoja:
@@ -144,6 +144,7 @@ class Arbol {
         void PreOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo=NULL, bool r=true);
         void PostOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo=NULL, bool r=true);
         void InOrdenPaquete(void (*func)(CentralDePaqueteria&, string ID) , pNodo nodo=NULL, bool r=true, string ID="");
+        void InOrdenInsertar(void (*func)(CentralDePaqueteria&, Paquete paquete) , pNodo nodo=NULL, bool r=true, Paquete paquete=Paquete());
         private:
         // Funciones auxiliares
         void Podar(pNodo &nodo);
@@ -157,11 +158,11 @@ class Arbol {
 
 */
 void Mostrar(CentralDePaqueteria&);
-void MostrarNumero(CentralDePaqueteria&);
+void MostrarNumeroYLocalidad(CentralDePaqueteria&);
 void MostrarEstadisticas(CentralDePaqueteria&);
 void MostrarDatosPaquete(CentralDePaqueteria&, string ID);
 void EliminarPaquete(CentralDePaqueteria&, string ID);
-
+void InsertarPaqueteInOrden(CentralDePaqueteria&, Paquete paquete);
 CentralDePaqueteria crearCP();
 
 #endif // UTILIDADES_H

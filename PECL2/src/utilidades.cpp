@@ -149,6 +149,33 @@ string modelarNIF(){
     }
     return NIFCompleto;
 }
+//Segun en que posicion se haya generado un CP automaticamente, escogerá una ciudad de las inicialmente dadas.
+//Cada vez que se define 1, se genera un contador.
+string definirCiudad(){
+    string ciudades[8] = {"Daganzo","Alcala","Mejorada","Nuevo Baztan","Arganda","Carabana","Chinchon","Villarejo"};
+    ++cpContador;
+    if(cpContador-1 > 7){
+        return "";
+    }else{
+        return ciudades[cpContador-1];
+    }
+}
+//Se genera un numero de CP de 3 cifras en un intervalo de 100 a 999
+int generarCP(){
+    int cp_max = 999;
+    int cp_min = 100;
+    int cp;
+    cp = (cp_min + rand() % (cp_max+1 - cp_min));
+    //Se guarda el CP generado en un array de CPs.
+    arrayCPs[cpContador] = cp;
+    return cp;
+}
+//Funcion que llama a las variables de un paquete para mostrarlas de una forma concreta
+void Paquete::mostrarDatosPaquete(){
+    cout << ID <<"|" << setw (14) << coordenadas <<"|" << setw (14) << NIF<< endl;
+}
+
+//---------------------LISTA--------------------
 Lista::~Lista()
 {
     pnodo aux;
@@ -226,6 +253,8 @@ Paquete Lista::valorActual()
 {
     return actual->valor;
 }
+//Se emplea para saber si se ha terminado de recorrer una lista
+//Mirando si el puntero actual es nulo y es diferente a la cabeza.
 bool Lista::listaRecorrida(){
     if(actual == NULL && actual != cabeza){
         return true;
@@ -233,27 +262,24 @@ bool Lista::listaRecorrida(){
     return false;
 }
 
-string definirCiudad(){
-    string ciudades[8] = {"Daganzo","Alcala","Mejorada","Nuevo Baztan","Arganda","Carabana","Chinchon","Villarejo"};
-    ++cpContador;
-    if(cpContador-1 > 7){
-        return "";
-    }else{
-        return ciudades[cpContador-1];
+//Metodo que permite mostrar todos los atos de los paquetes
+//de una lista dentro de una Central de paqueteria
+void Lista::MostrarPaquetesLista(){
+    esCabeza();
+    while(!listaRecorrida()){
+        cout << "-----------------------------------------------------"<<endl;
+        cout << "El id del paquete es: "<< valorActual().ID << endl;
+        cout << "Las coordenadas del paquete son: " << valorActual().coordenadas <<endl;
+        cout << "El NIF del comprador es: " << valorActual().NIF <<endl;
+        cout << "-----------------------------------------------------"<<endl;
+
+        esSiguiente();
+
     }
+    esFinal();
+    cout << valorActual().ID << endl;
+
 }
-
-int generarCP(){
-    int cp_max = 999;
-    int cp_min = 100;
-    int cp;
-    cp = (cp_min + rand() % (cp_max+1 - cp_min));
-    //Se guarda el CP generado en un array de CPs.
-    arrayCPs[cpContador] = cp;
-    return cp;
-}
-
-
 //------------ARBOL------------------
 
 // Poda: borrar todos los nodos a partir de uno, incluido
@@ -365,12 +391,23 @@ void Arbol::InOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo, bool r)
    func(nodo->dato);
    if(nodo->derecho) InOrden(func, nodo->derecho, false);
 }
+//Igual que InOrden solamente que acepta la introducción de un ID para poder buscar "InOrden" un paquete concreto.
 void Arbol::InOrdenPaquete(void (*func)(CentralDePaqueteria&, string ID) , pNodo nodo, bool r, string ID)
 {
    if(r) nodo = raiz;
    if(nodo->izquierdo) InOrdenPaquete(func, nodo->izquierdo, false, ID);
    func(nodo->dato, ID);
    if(nodo->derecho) InOrdenPaquete(func, nodo->derecho, false, ID);
+}
+//Igual que InOrden solamente que acepta la introducción de un
+//Paquete para poder buscar "InOrden" introducir paquete concreto.
+
+void Arbol::InOrdenInsertar(void (*func)(CentralDePaqueteria&, Paquete paquete) , pNodo nodo, bool r, Paquete paquete)
+{
+   if(r) nodo = raiz;
+   if(nodo->izquierdo) InOrdenInsertar(func, nodo->izquierdo, false, paquete);
+   func(nodo->dato, paquete);
+   if(nodo->derecho) InOrdenInsertar(func, nodo->derecho, false, paquete);
 }
 // Recorrido de árbol en preorden, aplicamos la función func, que tiene
 // el prototipo:
@@ -394,7 +431,7 @@ void Arbol::PostOrden(void (*func)(CentralDePaqueteria&), pNodo nodo, bool r)
    func(nodo->dato);
 }
 
-// Buscar un valor en el árbol por su id.
+// Buscar una ce ntral de paqueteria en el árbol por su id y devuelve la estructura.
 CentralDePaqueteria& Arbol::BuscarPorCp(int numeroCP)
 {
    actual = raiz;
@@ -411,6 +448,7 @@ CentralDePaqueteria& Arbol::BuscarPorCp(int numeroCP)
    }
    return raiz->dato;
 }
+//Busca un objeto por su numero de CP y devuelve false o true dependiendo de si lo ha encontrado o no.
 bool Arbol::Buscar(int numeroCP)
 {
    actual = raiz;
@@ -445,7 +483,6 @@ int Arbol::Altura(CentralDePaqueteria dat)
 const int Arbol::NumeroNodos()
 {
    contador = 0;
-
    auxContador(raiz); // FUnción auxiliar
    return contador;
 }
@@ -482,6 +519,7 @@ void Arbol::auxAltura(pNodo nodo, int a)
    if(EsHoja(nodo) && a > altura) altura = a;
 }
 
+//Muestra los datos de una Central de paqueteria concreta.
 void Arbol::mostrarDatosDeCP(int numero){
     if(!BuscarPorCp(numero).listaPaquetes.listaVacia()){
         cout << "------------------------------------------------------------------------------" << endl;
@@ -504,98 +542,7 @@ void Arbol::mostrarDatosDeCP(int numero){
         cout << "----------------------------------------------" << endl;
     }
 }
-
-// Función mostrar el contenido de los nodos del árbol
-void Mostrar(CentralDePaqueteria &d)
-{
-   cout << d.localidad << ",";
-
-}
-void MostrarNumeroYLocalidad(CentralDePaqueteria &d)
-{
-   cout <<"Localidad: "<<d.localidad<<"--> Numero: "<< d.numeroCP << endl;
-}
-void MostrarDatosPaquete(CentralDePaqueteria &d, string ID){
-    d.listaPaquetes.esCabeza();
-    while(!d.listaPaquetes.listaRecorrida()){
-
-        if(d.listaPaquetes.valorActual().ID == ID){
-
-            cout << "-----------------------------------------------------"<<endl;
-            cout << "El paquete se encuentra en la localidad: " << d.localidad << endl;
-            cout << "El numero de CP es: "<< d.numeroCP << endl;
-            cout << "El id del paquete es: "<< ID << endl;
-            cout << "Las coordenadas del paquete son: " << d.listaPaquetes.valorActual().coordenadas <<endl;
-            cout << "El NIF del comprador es: " << d.listaPaquetes.valorActual().NIF <<endl;
-            cout << "-----------------------------------------------------"<<endl;
-            break;
-        }else d.listaPaquetes.esSiguiente();
-    }
-
-}
-void EliminarPaquete(CentralDePaqueteria &d, string ID){
-    d.listaPaquetes.esCabeza();
-    while(!d.listaPaquetes.listaRecorrida()){
-
-        if(d.listaPaquetes.valorActual().ID == ID){
-            cout << "-----------------------------------------------------"<<endl;
-            cout << "Se procedera a la eliminacion del paquete: "<< ID <<endl;
-            cout << "-----------------------------------------------------"<<endl;
-            d.listaPaquetes.borrarNodo(d.listaPaquetes.valorActual());
-            break;
-        }else d.listaPaquetes.esSiguiente();
-    }
-
-}
-
-Paquete Lista::BuscarPaqueteLista(string ID){
-    esCabeza();
-    while(!listaRecorrida()){
-        if(valorActual().ID == ID){
-            return valorActual();
-        }
-        esSiguiente();
-    }
-    cout << "-----------------------------------" << endl;
-    cout << "No se ha encontrado el paquete" << endl;
-    cout << "-----------------------------------" << endl;
-    Paquete paqueteAux;
-    paqueteAux.ID = "";
-    return paqueteAux;
-
-}
-void MostrarEstadisticas(CentralDePaqueteria &d)
-{
-    cout << "------------------------------------------------------------------------" << endl;
-    cout << "|" << setw(5) << d.numeroCP << setw(5) << "|" << setw(20) << d.localidad
-    << setw(8) << "|" << setw(15) << d.listaPaquetes.cantidadPaquetes << setw(18) << "|" <<endl;
-    cout << "------------------------------------------------------------------------" << endl;
-
-}
-
-//Devuelve la cantidad de CPs que hay.
-int contadorCPs(){
-    return cpContador;
-}
-//Devuelve el numero de un CP en una posicion especifica dentro de un array donde estan guardados los numeros CP.
-int devolverCPporPosicion(int p){
-    return arrayCPs[p];
-}
-
-CentralDePaqueteria crearCP(){
-    string localidad;
-    int numeroCP;
-    CentralDePaqueteria centralPaqueteria;
-    cout << "Introduzca el nombre de la Central de Paqueteria" << endl;
-    cin >> localidad;
-    cout << "Introduzca el numero de la central de paqueteria" << endl;
-    cin >> numeroCP;
-    centralPaqueteria.localidad = localidad;
-    centralPaqueteria.numeroCP = numeroCP;
-    arrayCPs[cpContador] = numeroCP;
-    ++cpContador;
-    return centralPaqueteria;
-}
+//Metodo para eliminar Un nodo (en este caso la central de paqueteria) del arbol.
 void Arbol::borrarUnaCP(){
     cout << "Escriba el numero de la CP a borrar: " << endl;
     datosDeLasCP();
@@ -611,6 +558,8 @@ void Arbol::borrarUnaCP(){
 
     }
 }
+//Metodo pequeño ya que es utilizado varias veces, que en conjuncion a otros
+//arranca un proceso que muestra los datos de las centrales de paqueteria
 void Arbol::datosDeLasCP(){
     cout << "----------------------------------------------" << endl;
     InOrden(MostrarNumeroYLocalidad);
@@ -619,24 +568,111 @@ void Arbol::datosDeLasCP(){
 }
 
 
-void Paquete::mostrarDatosPaquete(){
-    cout << ID <<"|" << setw (14) << coordenadas <<"|" << setw (14) << NIF<< endl;
+// Función mostrar el contenido de los nodos del árbol
+void Mostrar(CentralDePaqueteria &d)
+{
+   cout << d.localidad << ",";
+
+}
+//Funcion mostrar el numero de CP y la localidad de una central de paqueteria.
+void MostrarNumeroYLocalidad(CentralDePaqueteria &d)
+{
+   cout <<"Localidad: "<<d.localidad<<"--> Numero: "<< d.numeroCP << endl;
+}
+//Funcion que en conjuncion con InOrdenPaquete muestra
+//todos los datos de un paquete concreto paquetes de la CP concreta.
+void MostrarDatosPaquete(CentralDePaqueteria &d, string ID){
+    if(!d.listaPaquetes.listaVacia()){
+        d.listaPaquetes.esCabeza();
+        while(!d.listaPaquetes.listaRecorrida()){
+
+            if(d.listaPaquetes.valorActual().ID == ID){
+
+                cout << "-----------------------------------------------------"<<endl;
+                cout << "El paquete se encuentra en la localidad: " << d.localidad << endl;
+                cout << "El numero de CP es: "<< d.numeroCP << endl;
+                cout << "El id del paquete es: "<< ID << endl;
+                cout << "Las coordenadas del paquete son: " << d.listaPaquetes.valorActual().coordenadas <<endl;
+                cout << "El NIF del comprador es: " << d.listaPaquetes.valorActual().NIF <<endl;
+                cout << "-----------------------------------------------------"<<endl;
+                break;
+            }else d.listaPaquetes.esSiguiente();
+        }
+    }
+}
+//Funcion que en conjuncion con InOrdenPaquete, elimina un paquete concreto de una Central De paqueteria concreta.
+void EliminarPaquete(CentralDePaqueteria &d, string ID){
+    d.listaPaquetes.esCabeza();
+    while(!d.listaPaquetes.listaRecorrida()){
+
+        if(d.listaPaquetes.valorActual().ID == ID){
+            cout << "-----------------------------------------------------"<<endl;
+            cout << "Se procedera a la eliminacion del paquete: "<< ID <<endl;
+            cout << "-----------------------------------------------------"<<endl;
+            d.listaPaquetes.borrarNodo(d.listaPaquetes.valorActual());
+            break;
+        }else d.listaPaquetes.esSiguiente();
+    }
+
 }
 
-
-void Lista::MostrarPaquetesLista(){
+//Busca El paquete dentro de una lista y lo devuelve
+Paquete Lista::BuscarPaqueteLista(string ID){
     esCabeza();
     while(!listaRecorrida()){
-        cout << "-----------------------------------------------------"<<endl;
-        cout << "El id del paquete es: "<< valorActual().ID << endl;
-        cout << "Las coordenadas del paquete son: " << valorActual().coordenadas <<endl;
-        cout << "El NIF del comprador es: " << valorActual().NIF <<endl;
-        cout << "-----------------------------------------------------"<<endl;
-
+        if(valorActual().ID == ID){
+            return valorActual();
+        }
         esSiguiente();
-
     }
-    esFinal();
-    cout << valorActual().ID << endl;
+    cout << "-----------------------------------" << endl;
+    cout << "No se ha encontrado el paquete" << endl;
+    cout << "-----------------------------------" << endl;
+    //Devuelve un paquete con un ID vacio para saber si se ha encontrado o no
+    Paquete paqueteAux;
+    paqueteAux.ID = "";
+    return paqueteAux;
 
+}
+
+//Funcion que se emplea con InOrden para mostrar las estadisticas de las Centrales de Paqueteria
+void MostrarEstadisticas(CentralDePaqueteria &d)
+{
+    cout << "------------------------------------------------------------------------" << endl;
+    cout << "|" << setw(5) << d.numeroCP << setw(5) << "|" << setw(20) << d.localidad
+    << setw(8) << "|" << setw(15) << d.listaPaquetes.cantidadPaquetes << setw(18) << "|" <<endl;
+    cout << "------------------------------------------------------------------------" << endl;
+
+}
+//Funcion que emplea la funcoin InsertarInOrden para insertar un paquete
+//En una de las hojas o raices (Centrales de paqueteria)del arbol.
+void InsertarPaqueteInOrden(CentralDePaqueteria &d, Paquete paquete){
+    paquete.numeroCP = d.numeroCP;
+    d.listaPaquetes.insertarNodo(paquete);
+}
+
+//Devuelve la cantidad de CPs que hay.
+int contadorCPs(){
+    return cpContador;
+}
+//Devuelve el numero de un CP en una posicion especifica dentro de un array donde estan guardados los numeros CP.
+int devolverCPporPosicion(int p){
+    return arrayCPs[p];
+}
+
+//Funcion que permite al usuario introducir datos que posteriormente quedaran
+//Introducidas como parte de una central de paqueteria
+CentralDePaqueteria crearCP(){
+    string localidad;
+    int numeroCP;
+    CentralDePaqueteria centralPaqueteria;
+    cout << "Introduzca el nombre de la Central de Paqueteria" << endl;
+    cin >> localidad;
+    cout << "Introduzca el numero de la central de paqueteria" << endl;
+    cin >> numeroCP;
+    centralPaqueteria.localidad = localidad;
+    centralPaqueteria.numeroCP = numeroCP;
+    arrayCPs[cpContador] = numeroCP;
+    ++cpContador;
+    return centralPaqueteria;
 }
