@@ -196,6 +196,7 @@ void Lista::insertarNodo(Paquete v)
         cabeza = new Nodo(v, NULL);
         final=cabeza;
         ++cantidadPaquetes;
+        decrementarNumeroListasVacias();
     }
     else
     {
@@ -225,6 +226,9 @@ void Lista::borrarNodo(Paquete v)
     actual->siguiente=NULL;
     --cantidadPaquetes;
     delete actual;
+    if(listaVacia()){
+        incrementarNumeroListasVacias();
+    }
 }
 bool Lista::listaVacia()
 {
@@ -602,16 +606,22 @@ void MostrarDatosPaquete(CentralDePaqueteria &d, string ID){
 }
 //Funcion que en conjuncion con InOrdenPaquete, elimina un paquete concreto de una Central De paqueteria concreta.
 void EliminarPaquete(CentralDePaqueteria &d, string ID){
-    d.listaPaquetes.esCabeza();
-    while(!d.listaPaquetes.listaRecorrida()){
+    if(!d.listaPaquetes.listaVacia()){
+        d.listaPaquetes.esCabeza();
+        while(!d.listaPaquetes.listaRecorrida())
+        {
 
-        if(d.listaPaquetes.valorActual().ID == ID){
-            cout << "-----------------------------------------------------"<<endl;
-            cout << "Se procedera a la eliminacion del paquete: "<< ID <<endl;
-            cout << "-----------------------------------------------------"<<endl;
-            d.listaPaquetes.borrarNodo(d.listaPaquetes.valorActual());
-            break;
-        }else d.listaPaquetes.esSiguiente();
+            if(d.listaPaquetes.valorActual().ID == ID)
+            {
+                cout << "-----------------------------------------------------"<<endl;
+                cout << "Se procedera a la eliminacion del paquete: "<< ID <<endl;
+                cout << "-----------------------------------------------------"<<endl;
+                d.listaPaquetes.borrarNodo(d.listaPaquetes.valorActual());
+                break;
+            }
+            else d.listaPaquetes.esSiguiente();
+        }
+
     }
 
 }
@@ -644,6 +654,12 @@ void MostrarEstadisticas(CentralDePaqueteria &d)
     cout << "------------------------------------------------------------------------" << endl;
 
 }
+
+void MostrarListasVacias(CentralDePaqueteria &d){
+    if(d.listaPaquetes.listaVacia()){
+        cout << "Central de paqueteria de: "<<d.localidad<<", con numero de CP: "<<d.numeroCP<< endl;
+    }
+}
 //Funcion que emplea la funcoin InsertarInOrden para insertar un paquete
 //En una de las hojas o raices (Centrales de paqueteria)del arbol.
 void InsertarPaqueteInOrden(CentralDePaqueteria &d, Paquete paquete){
@@ -658,6 +674,15 @@ int contadorCPs(){
 //Devuelve el numero de un CP en una posicion especifica dentro de un array donde estan guardados los numeros CP.
 int devolverCPporPosicion(int p){
     return arrayCPs[p];
+}
+int getNumeroListasVacias(){
+    return numeroListasVacias;
+}
+void incrementarNumeroListasVacias(){
+    ++numeroListasVacias;
+}
+void decrementarNumeroListasVacias(){
+    --numeroListasVacias;
 }
 
 //Funcion que permite al usuario introducir datos que posteriormente quedaran

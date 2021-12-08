@@ -61,6 +61,7 @@ int main()
         cout << "7. Llevar paquete del CAE a una CP" <<endl;
         cout << "8. Llevar paquete de una CP a otra"<< endl;
         cout << "9. Continuar con la distribucion de paquetes. Esta opcion inserta los paquetes restantes del CAE" << endl;
+        cout << "10. Rellenar una lista vacia o recien creada con una cantidad de "<< N3 << " paquetes"<<endl;
         cout << "0. Salir del programa" << endl;
         cin >> opcion;
         cout << "--------------------------------------------------------------------------------" << endl;
@@ -119,10 +120,25 @@ int main()
 
         case 6:
             {
-                cout << "Inserte el ID del paquete a Eliminar (Si no hay respuesta, significa que no se encontro el paquete)" << endl;
-                string ID;
-                cin >> ID;
-                arbolGeneral.InOrdenPaquete(EliminarPaquete,NULL,true,ID);
+                arbolGeneral.datosDeLasCP();
+                cout << "Inserte el numero de CP de la central a mostrar"<<endl;
+                int numero;
+                cin >> numero;
+                if(arbolGeneral.Buscar(numero))
+                {
+                    arbolGeneral.mostrarDatosDeCP(numero);
+                    cout << "Inserte el ID del paquete a Eliminar (Si no hay respuesta, significa que no se encontro el paquete)" << endl;
+                    string ID;
+                    cin >> ID;
+                    arbolGeneral.InOrdenPaquete(EliminarPaquete,NULL,true,ID);
+                }
+                else
+                {
+                    cout << "----------------------------------------------" << endl;
+                    cout << "La CP no ha sido encontrada" << endl;
+                    cout << "----------------------------------------------" << endl;
+                }
+
                 break;
             }
         case 7:
@@ -220,6 +236,38 @@ int main()
                     arbolGeneral.InOrdenInsertar(InsertarPaqueteInOrden,NULL,true,paquete);
                     listaPaquetesInicial.borrarNodo(paquete);
                 }
+            }
+            break;
+        case 10:
+            {
+                if(getNumeroListasVacias() != 0 ){
+                    arbolGeneral.InOrden(MostrarListasVacias);
+                    cout<<"-----------------------------------------------------------------"<<endl;
+                    cout<<"Introduce un numero de CP, al cual se le introduciran "<< N3<<" paquetes"<<endl;
+                    cout<<"-----------------------------------------------------------------"<<endl;
+                    int numero;
+                    cin >> numero;
+                    if(arbolGeneral.Buscar(numero)){
+                        for(int j = 0; j < N3; ++j)
+                        {
+                            Paquete paquete;
+                            paquete.numeroCP = arbolGeneral.BuscarPorCp(numero).numeroCP;
+                            cout << "Paquete: "<< paquete.ID<<" --> Sera introducido en: "<< arbolGeneral.BuscarPorCp(paquete.numeroCP).localidad<<". Con un CP: "<<paquete.numeroCP<<endl;
+                            arbolGeneral.BuscarPorCp(paquete.numeroCP).listaPaquetes.insertarNodo(paquete);
+                        }
+
+                    }else{
+                        cout << "---------------------------"<<endl;
+                        cout << "No existe la CP introducida" << endl;
+                        cout << "---------------------------"<<endl;
+                    }
+
+                }else{
+                    cout << "-----------------------"<<endl;
+                    cout << "No hay listas vacias" << endl;
+                    cout << "-----------------------"<<endl;
+                }
+
             }
             break;
         default:

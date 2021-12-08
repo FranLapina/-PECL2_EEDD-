@@ -6,6 +6,7 @@ using namespace std;
     DECLARACION
     DE METODOS
 */
+static int numeroListasVacias = 0;
 static int cpContador = 0;
 static int arrayCPs[100];
 int definirLatitud();
@@ -18,6 +19,10 @@ int generarCP();
 string definirCiudad();
 int contadorCPs();
 int devolverCPporPosicion(int p);
+void incrementarNumeroListasVacias();
+void decrementarNumeroListasVacias();
+int getNumeroListasVacias();
+
 struct Paquete{
 
 
@@ -63,6 +68,7 @@ public:
 
     Lista()
     {
+        incrementarNumeroListasVacias();
         cabeza = actual = final = NULL;
     }
     ~Lista();
@@ -163,6 +169,7 @@ void MostrarEstadisticas(CentralDePaqueteria&);
 void MostrarDatosPaquete(CentralDePaqueteria&, string ID);
 void EliminarPaquete(CentralDePaqueteria&, string ID);
 void InsertarPaqueteInOrden(CentralDePaqueteria&, Paquete paquete);
+void MostrarListasVacias(CentralDePaqueteria&);
 CentralDePaqueteria crearCP();
 
 #endif // UTILIDADES_H
