@@ -15,8 +15,8 @@ int definirLongitud(){
     int minutos_num = (min_min + rand() % (min_max+1 - min_min));
     int grados_num = 40;
     //Si los segundos y los minutos son menores de 2 digitos
-    //AÒadimos un 0 a la izquierda, para que a la hora de pasar
-    //a modelar el numero, sea m·s comodo introducir los caracteres,
+    //A√±adimos un 0 a la izquierda, para que a la hora de pasar
+    //a modelar el numero, sea m√°s comodo introducir los caracteres,
     //de grado,minuto y segundo.
     if(sec_num < 10){
         sec = "0"+to_string(sec_num);
@@ -44,8 +44,8 @@ int definirLatitud(){
     int minutos_num = (min_min + rand() % (min_max+1 - min_min));
     int grados_num = -3;
     //Si los segundos y los minutos son menores de 2 digitos
-    //AÒadimos un 0 a la izquierda, para que a la hora de pasar
-    //a modelar el numero, sea m·s comodo introducir los caracteres,
+    //A√±adimos un 0 a la izquierda, para que a la hora de pasar
+    //a modelar el numero, sea m√°s comodo introducir los caracteres,
     //de grado,minuto y segundo.
     if(sec_num < 10){
         sec = "0"+to_string(sec_num);
@@ -62,8 +62,8 @@ int definirLatitud(){
     return stoi(latitud);
 }
 
-//Modela la longitud parseandola a string y colocando los numeros de la siguiente forma XX∫ XX' XX''
-//mediante un bucle que aÒade espacios y caracteres en posiciones determinadas.
+//Modela la longitud parseandola a string y colocando los numeros de la siguiente forma XX¬∫ XX' XX''
+//mediante un bucle que a√±ade espacios y caracteres en posiciones determinadas.
 string modelarLongitud(int longitudNumerica){
     string longitud = to_string(longitudNumerica);
     for(int i = 0; i <= 11; ++i){
@@ -79,8 +79,8 @@ string modelarLongitud(int longitudNumerica){
 
 
 }
-//Modela la latitud parseandola a string y colocando los numeros de la siguiente forma XX∫ XX' XX''
-//mediante un bucle que aÒade espacios y caracteres en posiciones determinadas.
+//Modela la latitud parseandola a string y colocando los numeros de la siguiente forma XX¬∫ XX' XX''
+//mediante un bucle que a√±ade espacios y caracteres en posiciones determinadas.
 string modelarLatitud(int latitudNumerica){
     string latitud = to_string(latitudNumerica);
     for(int i = 0; i <= 11; ++i){
@@ -94,7 +94,7 @@ string modelarLatitud(int latitudNumerica){
     }
     return latitud;
 }
-//Genera los n˙meros del ID con un random que va de 0 a 999999
+//Genera los n√∫meros del ID con un random que va de 0 a 999999
 //No es necesario pasarlo a el header.
 int generarNumerosID(){
     int maximo = 999999;
@@ -129,8 +129,8 @@ int generarNumerosNIF(){
         numerosNIF = (minimo + rand() % (maximo+1 - minimo));
         return numerosNIF;
 }
-//parsea el numero a string y completa el NIF aÒadiendole la letra que le corresponderia para los numeros que tiene
-//Y si no llega a 9 digitos (letra incluida) aÒade 0s a la izquierda hasta completarlo.
+//parsea el numero a string y completa el NIF a√±adiendole la letra que le corresponderia para los numeros que tiene
+//Y si no llega a 9 digitos (letra incluida) a√±ade 0s a la izquierda hasta completarlo.
 string modelarNIF(){
     int numerosNIF = generarNumerosNIF();
     char letras[] = {'T','R','W','A','G','M','Y',
@@ -140,7 +140,7 @@ string modelarNIF(){
     int posicion = numerosNIF%23;
     NIFCompleto = to_string(numerosNIF);
     NIFCompleto = NIFCompleto+letras[posicion];
-    //Comprobar si el NIF tiene un tamaÒo de 9 caracteres, si no lo tiene se aÒaden 0s a la izquierda.
+    //Comprobar si el NIF tiene un tama√±o de 9 caracteres, si no lo tiene se a√±aden 0s a la izquierda.
     if(NIFCompleto.length() < 9){
         int exceso = 9 - NIFCompleto.length();
         for(int i = 0; i < exceso; ++i){
@@ -149,7 +149,7 @@ string modelarNIF(){
     }
     return NIFCompleto;
 }
-//Segun en que posicion se haya generado un CP automaticamente, escoger· una ciudad de las inicialmente dadas.
+//Segun en que posicion se haya generado un CP automaticamente, escoger√° una ciudad de las inicialmente dadas.
 //Cada vez que se define 1, se genera un contador.
 string definirCiudad(){
     string ciudades[8] = {"Daganzo","Alcala","Mejorada","Nuevo Baztan","Arganda","Carabana","Chinchon","Villarejo"};
@@ -241,7 +241,7 @@ void Lista::esCabeza()
 void Lista::esFinal()
 {
     esCabeza();
-    if(!listaVacia()) // M·s sencillo
+    if(!listaVacia()) // M√°s sencillo
         while(actual->siguiente) // actual = final;
             esSiguiente();
 }
@@ -280,8 +280,6 @@ void Lista::MostrarPaquetesLista(){
         esSiguiente();
 
     }
-    esFinal();
-    cout << valorActual().ID << endl;
 
 }
 //------------ARBOL------------------
@@ -298,12 +296,12 @@ void Arbol::Podar(pNodo &nodo)
    }
 }
 
-// Insertar un int en el ·rbol ABB
+// Insertar un int en el √°rbol ABB
 void Arbol::Insertar(CentralDePaqueteria dat)
 {
    pNodo padre = NULL;
    actual = raiz;
-  // Buscar el Central de paqueteria en el ·rbol, si est· vacio y si el numero
+  // Buscar el Central de paqueteria en el √°rbol, si est√° vacio y si el numero
    //de CP actual esta en la cabeza del arbol
    while(!Vacio(actual) && (dat.numeroCP  != actual->dato.numeroCP)) {
       padre = actual;
@@ -315,7 +313,7 @@ void Arbol::Insertar(CentralDePaqueteria dat)
 
    // Si se ha encontrado el elemento, regresar sin insertar
    if(!Vacio(actual)) return;
-   // Si padre es NULL, entonces el ·rbol estaba vacÌo, el nuevo nodo ser·
+   // Si padre es NULL, entonces el √°rbol estaba vac√≠o, el nuevo nodo ser√°
    // el nodo raiz
    if(Vacio(padre)) raiz = new NodoArbol(dat);
    // Si el int es menor que el que contiene el nodo padre, lo insertamos
@@ -327,7 +325,7 @@ void Arbol::Insertar(CentralDePaqueteria dat)
 
 }
 
-// Eliminar un elemento de un ·rbol ABB
+// Eliminar un elemento de un √°rbol ABB
 void Arbol::Borrar(CentralDePaqueteria dat)
 {
    pNodo padre = NULL;
@@ -335,10 +333,10 @@ void Arbol::Borrar(CentralDePaqueteria dat)
    CentralDePaqueteria aux;
 
    actual = raiz;
-   // Mientras sea posible que el valor estÈ en el ·rbol
+   // Mientras sea posible que el valor est√© en el √°rbol
    while(!Vacio(actual)) {
-      if(dat.numeroCP == actual->dato.numeroCP) { // Si el valor est· en el nodo actual
-         if(EsHoja(actual)) { // Y si adem·s es un nodo hoja: lo borramos
+      if(dat.numeroCP == actual->dato.numeroCP) { // Si el valor est√° en el nodo actual
+         if(EsHoja(actual)) { // Y si adem√°s es un nodo hoja: lo borramos
             if(padre){ // Si tiene padre (no es el nodo raiz)
                // Anulamos el puntero que le hace referencia
                if(padre->derecho == actual) padre->derecho = NULL;
@@ -348,10 +346,10 @@ void Arbol::Borrar(CentralDePaqueteria dat)
             actual = NULL;
             return;
          }
-         else { // Si el valor est· en el nodo actual, pero no es hoja
+         else { // Si el valor est√° en el nodo actual, pero no es hoja
             // Buscar nodo
             padre = actual;
-            // Buscar nodo m·s izquierdo de rama derecha
+            // Buscar nodo m√°s izquierdo de rama derecha
             if(actual->derecho) {
                nodo = actual->derecho;
                while(nodo->izquierdo) {
@@ -359,7 +357,7 @@ void Arbol::Borrar(CentralDePaqueteria dat)
                   nodo = nodo->izquierdo;
                }
             }
-            // O buscar nodo m·s derecho de rama izquierda
+            // O buscar nodo m√°s derecho de rama izquierda
             else {
                nodo = actual->izquierdo;
                while(nodo->derecho) {
@@ -369,15 +367,15 @@ void Arbol::Borrar(CentralDePaqueteria dat)
             }
             // Intercambiar valores de no a borrar u nodo encontrado
             // y continuar, cerrando el bucle. El nodo encontrado no tiene
-            // por quÈ ser un nodo hoja, cerrando el bucle nos aseguramos
-            // de que sÛlo se eliminan nodos hoja.
+            // por qu√© ser un nodo hoja, cerrando el bucle nos aseguramos
+            // de que s√≥lo se eliminan nodos hoja.
             aux = actual->dato;
             actual->dato = nodo->dato;
             nodo->dato = aux;
             actual = nodo;
          }
       }
-      else { // TodavÌa no hemos encontrado el valor, seguir busc·ndolo
+      else { // Todav√≠a no hemos encontrado el valor, seguir busc√°ndolo
          padre = actual;
          if(dat.numeroCP > actual->dato.numeroCP) actual = actual->derecho;
          else if(dat.numeroCP < actual->dato.numeroCP) actual = actual->izquierdo;
@@ -385,7 +383,7 @@ void Arbol::Borrar(CentralDePaqueteria dat)
    }
 }
 
-// Recorrido de ·rbol en inorden, aplicamos la funciÛn func, que tiene
+// Recorrido de √°rbol en inorden, aplicamos la funci√≥n func, que tiene
 // el prototipo:
 // void func(int&);
 void Arbol::InOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo, bool r)
@@ -395,7 +393,7 @@ void Arbol::InOrden(void (*func)(CentralDePaqueteria&) , pNodo nodo, bool r)
    func(nodo->dato);
    if(nodo->derecho) InOrden(func, nodo->derecho, false);
 }
-//Igual que InOrden solamente que acepta la introducciÛn de un ID para poder buscar "InOrden" un paquete concreto.
+//Igual que InOrden solamente que acepta la introducci√≥n de un ID para poder buscar "InOrden" un paquete concreto.
 void Arbol::InOrdenPaquete(void (*func)(CentralDePaqueteria&, string ID) , pNodo nodo, bool r, string ID)
 {
    if(r) nodo = raiz;
@@ -403,7 +401,7 @@ void Arbol::InOrdenPaquete(void (*func)(CentralDePaqueteria&, string ID) , pNodo
    func(nodo->dato, ID);
    if(nodo->derecho) InOrdenPaquete(func, nodo->derecho, false, ID);
 }
-//Igual que InOrden solamente que acepta la introducciÛn de un
+//Igual que InOrden solamente que acepta la introducci√≥n de un
 //Paquete para poder buscar "InOrden" introducir paquete concreto.
 
 void Arbol::InOrdenInsertar(void (*func)(CentralDePaqueteria&, Paquete paquete) , pNodo nodo, bool r, Paquete paquete)
@@ -413,7 +411,7 @@ void Arbol::InOrdenInsertar(void (*func)(CentralDePaqueteria&, Paquete paquete) 
    func(nodo->dato, paquete);
    if(nodo->derecho) InOrdenInsertar(func, nodo->derecho, false, paquete);
 }
-// Recorrido de ·rbol en preorden, aplicamos la funciÛn func, que tiene
+// Recorrido de √°rbol en preorden, aplicamos la funci√≥n func, que tiene
 // el prototipo:
 // void func(int&);
 void Arbol::PreOrden(void (*func)(CentralDePaqueteria&), pNodo nodo, bool r)
@@ -424,7 +422,7 @@ void Arbol::PreOrden(void (*func)(CentralDePaqueteria&), pNodo nodo, bool r)
    if(nodo->derecho) PreOrden(func, nodo->derecho, false);
 }
 
-// Recorrido de ·rbol en postorden, aplicamos la funciÛn func, que tiene
+// Recorrido de √°rbol en postorden, aplicamos la funci√≥n func, que tiene
 // el prototipo:
 // void func(int&);
 void Arbol::PostOrden(void (*func)(CentralDePaqueteria&), pNodo nodo, bool r)
@@ -435,12 +433,12 @@ void Arbol::PostOrden(void (*func)(CentralDePaqueteria&), pNodo nodo, bool r)
    func(nodo->dato);
 }
 
-// Buscar una ce ntral de paqueteria en el ·rbol por su id y devuelve la estructura.
+// Buscar una ce ntral de paqueteria en el √°rbol por su id y devuelve la estructura.
 CentralDePaqueteria& Arbol::BuscarPorCp(int numeroCP)
 {
    actual = raiz;
 
-   // TodavÌa puede aparecer, ya que quedan nodos por mirar
+   // Todav√≠a puede aparecer, ya que quedan nodos por mirar
    while(!Vacio(actual)) {
       if(numeroCP == actual->dato.numeroCP){
         return actual->dato; // int encontrado
@@ -457,7 +455,7 @@ bool Arbol::Buscar(int numeroCP)
 {
    actual = raiz;
 
-   // TodavÌa puede aparecer, ya que quedan nodos por mirar
+   // Todav√≠a puede aparecer, ya que quedan nodos por mirar
    while(!Vacio(actual)) {
       if(numeroCP == actual->dato.numeroCP) return true; // int encontrado
       else if(numeroCP > actual->dato.numeroCP) actual = actual->derecho; // Seguir
@@ -471,7 +469,7 @@ int Arbol::Altura(CentralDePaqueteria dat)
    int altura = 0;
    actual = raiz;
 
-   // TodavÌa puede aparecer, ya que quedan nodos por mirar
+   // Todav√≠a puede aparecer, ya que quedan nodos por mirar
    while(!Vacio(actual)) {
       if(dat.numeroCP == actual->dato.numeroCP) return altura; // int encontrado
       else {
@@ -480,18 +478,18 @@ int Arbol::Altura(CentralDePaqueteria dat)
          else if(dat.numeroCP < actual->dato.numeroCP) actual = actual->izquierdo;
       }
    }
-   return -1; // No est· en ·rbol
+   return -1; // No est√° en √°rbol
 }
 
-// Contar el n˙mero de nodos
+// Contar el n√∫mero de nodos
 const int Arbol::NumeroNodos()
 {
    contador = 0;
-   auxContador(raiz); // FUnciÛn auxiliar
+   auxContador(raiz); // FUnci√≥n auxiliar
    return contador;
 }
 
-// FunciÛn auxiliar para contar nodos. FunciÛn recursiva de recorrido en
+// Funci√≥n auxiliar para contar nodos. Funci√≥n recursiva de recorrido en
 //   preorden, el proceso es aumentar el contador
 void Arbol::auxContador(pNodo nodo)
 {
@@ -501,25 +499,25 @@ void Arbol::auxContador(pNodo nodo)
    if(nodo->derecho)   auxContador(nodo->derecho);
 }
 
-// Calcular la altura del ·rbol, que es la altura del nodo de mayor altura.
+// Calcular la altura del √°rbol, que es la altura del nodo de mayor altura.
 const int Arbol::AlturaArbol()
 {
    altura = 0;
 
-   auxAltura(raiz, 0); // FunciÛn auxiliar
+   auxAltura(raiz, 0); // Funci√≥n auxiliar
    return altura;
 }
 
-// FunciÛn auxiliar para calcular altura. FunciÛn recursiva de recorrido en
-// postorden, el proceso es actualizar la altura sÛlo en nodos hojas de mayor
-// altura de la m·xima actual
+// Funci√≥n auxiliar para calcular altura. Funci√≥n recursiva de recorrido en
+// postorden, el proceso es actualizar la altura s√≥lo en nodos hojas de mayor
+// altura de la m√°xima actual
 void Arbol::auxAltura(pNodo nodo, int a)
 {
    // Recorrido postorden
    if(nodo->izquierdo) auxAltura(nodo->izquierdo, a+1);
    if(nodo->derecho)   auxAltura(nodo->derecho, a+1);
    // Proceso, si es un nodo hoja, y su altura es mayor que la actual del
-   // ·rbol, actualizamos la altura actual del ·rbol
+   // √°rbol, actualizamos la altura actual del √°rbol
    if(EsHoja(nodo) && a > altura) altura = a;
 }
 
@@ -562,7 +560,7 @@ void Arbol::borrarUnaCP(){
 
     }
 }
-//Metodo pequeÒo ya que es utilizado varias veces, que en conjuncion a otros
+//Metodo peque√±o ya que es utilizado varias veces, que en conjuncion a otros
 //arranca un proceso que muestra los datos de las centrales de paqueteria
 void Arbol::datosDeLasCP(){
     cout << "----------------------------------------------" << endl;
@@ -572,7 +570,7 @@ void Arbol::datosDeLasCP(){
 }
 
 
-// FunciÛn mostrar el contenido de los nodos del ·rbol
+// Funci√≥n mostrar el contenido de los nodos del √°rbol
 void Mostrar(CentralDePaqueteria &d)
 {
    cout << d.localidad << ",";
